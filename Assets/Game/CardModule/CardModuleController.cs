@@ -65,6 +65,7 @@ namespace Game.CardModule
 
         private void OnFlipButtonClickEvent()
         {
+            //rewrite architecture
             flipHandlersList[_uihudWindow.FlipTypesDropdownValue].Flip(_cardViews);
         }
 

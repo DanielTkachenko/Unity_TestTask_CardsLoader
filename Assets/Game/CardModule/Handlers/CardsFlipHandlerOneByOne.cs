@@ -17,7 +17,7 @@ namespace Game.CardModule.Handlers
 
         public override void Flip(IEnumerable<CardView> list)
         {
-            
+            //need to define
         }
     }
 }
