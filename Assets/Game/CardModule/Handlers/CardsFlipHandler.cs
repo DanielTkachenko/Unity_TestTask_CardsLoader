@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Game.Card.Abstract;
 using Game.CardModule.Abstract;
 
@@ -6,6 +8,8 @@ namespace Game.CardModule.Handlers
 {
     public abstract class CardsFlipHandler : ICardsFlipHandler
     {
+        public Action OnCardsFlipFinished { get; }
+        
         protected readonly IPictureLoadHandler _pictureLoadHandler;
         protected readonly ICardAnimationHandler _cardAnimationHandler;
 
@@ -17,7 +21,6 @@ namespace Game.CardModule.Handlers
             _cardAnimationHandler = cardAnimationHandler;
         }
         
-
-        public abstract void Flip(IEnumerable<CardView> list);
+        public abstract UniTaskVoid Flip(IEnumerable<CardView> list);
     }
 }

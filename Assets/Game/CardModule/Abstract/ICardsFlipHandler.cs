@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 namespace Game.CardModule.Abstract
 {
     public interface ICardsFlipHandler
     {
-        void Flip(IEnumerable<CardView> list);
+        public Action OnCardsFlipFinished { get; }
+        UniTaskVoid Flip(IEnumerable<CardView> list);
     }
 }

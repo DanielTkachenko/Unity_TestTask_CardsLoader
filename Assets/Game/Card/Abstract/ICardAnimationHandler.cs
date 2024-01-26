@@ -1,7 +1,11 @@
-﻿namespace Game.Card.Abstract
+﻿using System;
+using Cysharp.Threading.Tasks;
+
+namespace Game.Card.Abstract
 {
     public interface ICardAnimationHandler
     {
-        public void PlayFlipAnimation(CardView cardView);
+        Action<CardView> OnFlipAnimationComplete { get; }
+        UniTask PlayFlipAnimation(CardView cardView);
     }
 }

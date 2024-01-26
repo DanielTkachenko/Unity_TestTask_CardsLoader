@@ -15,9 +15,28 @@ namespace Game.CardModule.Handlers
         {
         }
 
-        public override void Flip(IEnumerable<CardView> list)
+        public override async UniTaskVoid Flip(IEnumerable<CardView> list)
         {
-            //need to define
+            foreach (var item in list)
+            {
+                var task = LoadAndFlipOneCard(item);
+                await UniTask.WhenAll(task);
+            }
+            
+            OnCardsFlipFinished?.Invoke();
+        }
+        
+        private async UniTask LoadAndFlipOneCard(CardView view)
+        {
+            var tex2d = await _pictureLoadHandler.DownloadPictureAsync();
+
+            if (tex2d != null)
+            {
+                view.IconSpriteRenderer.sprite = 
+                    Sprite.Create(tex2d, new Rect(0, 0, 20, 20), Vector2.zero);
+            }
+            
+            await _cardAnimationHandler.PlayFlipAnimation(view);
         }
     }
 }
