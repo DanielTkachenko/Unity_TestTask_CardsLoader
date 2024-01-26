@@ -9,7 +9,6 @@ namespace Game.Card
 {
     public class CardAnimationHandler : ICardAnimationHandler
     {
-        public Action<CardView> OnFlipAnimationComplete { get; }
         public CancellationTokenSource _cancellationToken { get; } = new CancellationTokenSource();
         
         private readonly float _flipAnimationDuration;
@@ -29,8 +28,6 @@ namespace Game.Card
                 .WithCancellation(_cancellationToken.Token);
 
             await UniTask.WhenAll(seq);
-            
-            OnFlipAnimationComplete?.Invoke(cardView);
         }
     }
 }
