@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Game.Card;
 using Game.Card.Abstract;
 using Game.CardModule.Abstract;
@@ -22,6 +24,7 @@ namespace Game.CardModule
         private readonly CardModuleModel _cardModuleModel;
         private readonly CardModuleView.Factory _cardModuleFactory;
         private readonly CardController _cardController;
+        private readonly UIHUDWindowController _uihudWindowController;
         private readonly CardsFlipHandler _cardsFlipHandler;
 
         private CardModuleView _view;
@@ -36,13 +39,15 @@ namespace Game.CardModule
             CardController cardController,
             IPictureLoadHandler pictureLoadHandler,
             ICardAnimationHandler cardAnimationHandler,
-            IWindowsManager windowsManager
+            IWindowsManager windowsManager,
+            UIHUDWindowController uihudWindowController
             )
         {
             _cardModuleModel = gameplaySettings.CardModuleConfig;
             _cardModuleFactory = cardModuleFactory;
             _cardController = cardController;
-            
+            _uihudWindowController = uihudWindowController;
+
             _view = null;
             _cardViews = cardController.Views;
             _cardsNumber = _cardModuleModel.CardsNumber;
@@ -60,19 +65,27 @@ namespace Game.CardModule
 
         private void OnCancelButtonClickEvent()
         {
-            
+            //need to define
         }
 
-        private void OnFlipButtonClickEvent()
+        private async void OnFlipButtonClickEvent()
         {
             //rewrite architecture
-            flipHandlersList[_uihudWindow.FlipTypesDropdownValue].Flip(_cardViews, _cardModuleModel.PicturesURL);
+            _uihudWindowController.SetButtonsActive(false, true);
+            await flipHandlersList[_uihudWindow.FlipTypesDropdownValue].Flip(_cardViews, _cardModuleModel.PicturesURL);
+            _uihudWindowController.SetButtonsActive(true, false);
         }
 
         public void Init()
         {
             _view = _cardModuleFactory.Create();
             SpawnCards();
+        }
+
+        private void ChangeButtons()
+        {
+            _uihudWindowController.SetButtonsActive(true, false);
+            flipHandlersList[_uihudWindow.FlipTypesDropdownValue].OnCardsFlipFinished -= ChangeButtons;
         }
 
         private void SpawnCards()

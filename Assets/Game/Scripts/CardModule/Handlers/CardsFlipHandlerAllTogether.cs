@@ -17,8 +17,9 @@ namespace Game.CardModule.Handlers
         {
         }
 
-        public override async UniTaskVoid Flip(IEnumerable<CardView> list, string url)
+        public override async UniTask Flip(IEnumerable<CardView> list, string url)
         {
+            await base.Flip(list, url);
             await LoadPicturesForCollection(list, url);
             await PlayAnimationForCollection(list);
             OnCardsFlipFinished?.Invoke();
@@ -42,7 +43,7 @@ namespace Game.CardModule.Handlers
             List<UniTask> tasks = new List<UniTask>();
             foreach (var view in list)
             {
-                var task = _cardAnimationHandler.PlayFlipAnimation(view);
+                var task = CardAnimationHandler.PlayFlipAnimation(view);
                 tasks.Add(task);
             }
 
@@ -52,7 +53,7 @@ namespace Game.CardModule.Handlers
         
         private async UniTask LoadOneCard(CardView view, string url)
         {
-            var tex2d = await _pictureLoadHandler.DownloadPictureAsync(url);
+            var tex2d = await PictureLoadHandler.DownloadPictureAsync(url);
 
             if (tex2d != null)
             {

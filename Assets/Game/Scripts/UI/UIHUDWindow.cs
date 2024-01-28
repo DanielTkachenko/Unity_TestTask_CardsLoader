@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using Game.CardModule;
 using Game.UI.Abstract;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Game.UI
         public Action OnCancelButtonClickEvent;
         
         public int FlipTypesDropdownValue => flipTypesDropdown.value;
+        public Button FlipButton => flipButton;
+        public Button CancelButton => cancelButton;
         
         [SerializeField] private Dropdown flipTypesDropdown;
         [SerializeField] private Button flipButton;

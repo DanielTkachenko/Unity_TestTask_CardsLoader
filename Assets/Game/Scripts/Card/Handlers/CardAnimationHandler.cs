@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Card.Abstract;
@@ -9,7 +10,7 @@ namespace Game.Card.Handlers
     public class CardAnimationHandler : ICardAnimationHandler
     {
         public CancellationTokenSource _cancellationToken { get; } = new CancellationTokenSource();
-        
+
         private readonly float _flipAnimationDuration;
 
         public CardAnimationHandler(GameplaySettingsConfig gameplaySettings)

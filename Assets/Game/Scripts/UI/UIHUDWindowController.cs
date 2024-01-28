@@ -10,5 +10,11 @@ namespace Game.UI
         {
             _hudWindow = windowsManager.Get<UIHUDWindow>();
         }
+
+        public void SetButtonsActive(bool flipButtonActive, bool cancelButtonActive)
+        {
+            _hudWindow.FlipButton.interactable = flipButtonActive;
+            _hudWindow.CancelButton.interactable = cancelButtonActive;
+        }
     }
 }

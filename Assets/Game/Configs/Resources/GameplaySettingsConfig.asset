@@ -15,6 +15,7 @@ MonoBehaviour:
   cardConfig:
     Scale: 1
   cardAnimationConfig:
-    FlipAnimationDuration: 1
+    FlipAnimationDuration: 0.4
   cardModuleConfig:
-    CardsNumber: 3
+    CardsNumber: 5
+    PicturesURL: https://picsum.photos/50

@@ -6,7 +6,7 @@ namespace Game.CardModule.Abstract
 {
     public interface ICardsFlipHandler
     {
-        public Action OnCardsFlipFinished { get; }
-        UniTaskVoid Flip(IEnumerable<CardView> list, string url);
+        public Action OnCardsFlipFinished { get; set; }
+        UniTask Flip(IEnumerable<CardView> list, string url);
     }
 }
